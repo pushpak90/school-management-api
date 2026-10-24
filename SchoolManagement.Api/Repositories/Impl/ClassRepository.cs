@@ -1,37 +1,48 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using SchoolManagement.Api.Data;
 using SchoolManagement.Api.Models;
 
 namespace SchoolManagement.Api.Repositories.Impl;
 
-public class ClassRepository : IClassRepository
+public class ClassRepository(AppDbContext _context) : IClassRepository
 {
-    public Task<SchoolClass> AddAsync(SchoolClass schoolClass)
+    public async Task<SchoolClass> AddAsync(SchoolClass schoolClass)
     {
-        throw new NotImplementedException();
+        _context.Classes.Add(schoolClass);
+        await _context.SaveChangesAsync();
+        return schoolClass;
     }
 
-    public Task DeleteAsync(SchoolClass schoolClass)
+    public async Task DeleteAsync(SchoolClass schoolClass)
     {
-        throw new NotImplementedException();
+        _context.Classes.Update(schoolClass);
+        await _context.SaveChangesAsync();
     }
 
-    public Task<bool> ExistsAsync(string name, string section, string academicYear, int? excludeId = null)
+    public async Task<bool> ExistsAsync(string name, string section, string academicYear, int? excludeId = null)
     {
-        throw new NotImplementedException();
+        return await _context.Classes.AnyAsync( c =>
+            c.Name == name &&
+            c.Section == section &&
+            c.AcademicYear == academicYear &&
+            (excludeId == null || c.Id != excludeId)
+        );
     }
 
-    public Task<List<SchoolClass>> GetAllAsync()
+    public async Task<List<SchoolClass>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Classes.AsNoTracking().ToListAsync();
     }
 
-    public Task<SchoolClass?> GetByIdAsync(int id)
+    public async Task<SchoolClass?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Classes.FindAsync(id);
     }
 
-    public Task UpdateAsync(SchoolClass schoolClass)
+    public async Task UpdateAsync(SchoolClass schoolClass)
     {
-        throw new NotImplementedException();
+        _context.Classes.Update(schoolClass);
+        await _context.SaveChangesAsync();
     }
 }
