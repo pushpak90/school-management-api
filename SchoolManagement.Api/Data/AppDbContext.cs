@@ -11,5 +11,12 @@ public class AppDbContext : DbContext
         
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<SchoolClass>()
+            .HasIndex(c => new {c.Name, c.Section, c.AcademicYear})
+            .IsUnique();
+    }
+
     public DbSet<SchoolClass> Classes {get; set;}
 }
