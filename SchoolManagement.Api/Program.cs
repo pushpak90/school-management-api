@@ -3,6 +3,8 @@ using SchoolManagement.Api.Data;
 using SchoolManagement.Api.Exceptions;
 using SchoolManagement.Api.Repositories;
 using SchoolManagement.Api.Repositories.Impl;
+using SchoolManagement.Api.Services;
+using SchoolManagement.Api.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,8 @@ builder.Services.AddDbContext<AppDbContext>(
 );
 
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<IClassService, ClassService>();
+
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
