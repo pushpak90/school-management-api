@@ -13,6 +13,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             NotFoundException => (StatusCodes.Status404NotFound, "Not found"),
             ConflictException => (StatusCodes.Status409Conflict, "Conflict"),
+            BadRequestException => (StatusCodes.Status400BadRequest, "Bad request"),
             _ => (StatusCodes.Status500InternalServerError, "Server error")
         };
 
