@@ -16,7 +16,7 @@ public class ClassRepository(AppDbContext _context) : IClassRepository
 
     public async Task DeleteAsync(SchoolClass schoolClass)
     {
-        _context.Classes.Update(schoolClass);
+        _context.Classes.Remove(schoolClass);
         await _context.SaveChangesAsync();
     }
 

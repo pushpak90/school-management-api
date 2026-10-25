@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using SchoolManagement.Api.Data;
 using SchoolManagement.Api.Exceptions;
 using SchoolManagement.Api.Repositories;
@@ -32,6 +33,7 @@ app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
