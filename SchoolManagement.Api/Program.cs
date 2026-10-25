@@ -22,6 +22,8 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 builder.Services.AddScoped<IClassService, ClassService>();
 
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
