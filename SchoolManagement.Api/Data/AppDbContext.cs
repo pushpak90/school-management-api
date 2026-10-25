@@ -16,7 +16,18 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<SchoolClass>()
             .HasIndex(c => new {c.Name, c.Section, c.AcademicYear})
             .IsUnique();
+        
+        modelBuilder.Entity<Student>()
+            .HasIndex(s => new {s.ClassId, s.RollNumber})
+            .IsUnique();
+
+        modelBuilder.Entity<Student>()
+            .HasOne(s => s.Class)
+            .WithMany()
+            .HasForeignKey(s => s.ClassId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
     public DbSet<SchoolClass> Classes {get; set;}
+    public DbSet<Student> Students {get; set;}
 }
