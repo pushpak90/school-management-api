@@ -40,6 +40,10 @@ public class StudentService : IStudentService
     public async Task DeleteAsync(int id)
     {
         var student = await GetExistingAsync(id);
+        if (await _classRepo.HasStudentAsync(id))
+        {
+            throw new ConflictException($"This class has students and cannot be deleted");
+        }
         await _studentRepo.DeleteAsync(student);
     }
 

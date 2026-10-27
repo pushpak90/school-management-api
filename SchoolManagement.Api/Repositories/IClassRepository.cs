@@ -11,4 +11,5 @@ public interface IClassRepository
     Task<SchoolClass> AddAsync(SchoolClass schoolClass);
     Task UpdateAsync(SchoolClass schoolClass);
     Task DeleteAsync(SchoolClass schoolClass);
+    Task<bool> HasStudentAsync(int classId);
 }

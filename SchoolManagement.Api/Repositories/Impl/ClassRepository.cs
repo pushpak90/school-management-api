@@ -45,4 +45,14 @@ public class ClassRepository(AppDbContext _context) : IClassRepository
         _context.Classes.Update(schoolClass);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> HasStudentsAsync(int classId)
+    {
+        return await _context.Students.AnyAsync(s => s.ClassId == classId);
+    }
+
+    public async Task<bool> HasStudentAsync(int classId)
+    {
+        return await _context.Students.AnyAsync(s => s.ClassId == classId);
+    }
 }
