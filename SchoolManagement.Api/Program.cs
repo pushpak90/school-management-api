@@ -40,14 +40,15 @@ builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
-app.Use(async(context, next) =>
+app.Use(async (context, next) =>
 {
-    using(LogContext.PushProperty("TraceId", context.TraceIdentifier))
+    using (LogContext.PushProperty("CorrelationId", context.TraceIdentifier))
     {
         await next();
     }
 });
 
+app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
@@ -56,8 +57,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
-
-app.UseHttpsRedirection();
+else
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 
