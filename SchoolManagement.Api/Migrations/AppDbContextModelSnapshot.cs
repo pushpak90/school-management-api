@@ -50,7 +50,7 @@ namespace SchoolManagement.Api.Migrations
                     b.HasIndex("Name", "Section", "AcademicYear")
                         .IsUnique();
 
-                    b.ToTable("Classes");
+                    b.ToTable("Classes", (string)null);
                 });
 
             modelBuilder.Entity("SchoolManagement.Api.Models.Student", b =>
@@ -103,7 +103,7 @@ namespace SchoolManagement.Api.Migrations
                     b.HasIndex("ClassId", "RollNumber")
                         .IsUnique();
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("SchoolManagement.Api.Models.Student", b =>
